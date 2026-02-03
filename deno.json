@@ -1,6 +1,6 @@
 {
-  "name": "@zeero-systems/anemics",
-  "version": "0.29.7",
+  "name": "@zeeerotn/relays",
+  "version": "0.3.0",
   "license": "GPL-3.0",
   "exports": {
     ".": "./index.ts",

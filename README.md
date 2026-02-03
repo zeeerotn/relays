@@ -1,3 +1,3 @@
-# ANEMICS
+# RELAYS
 
-An anemic framework with minimal dependencies
+A backend framework with minimal dependencies
