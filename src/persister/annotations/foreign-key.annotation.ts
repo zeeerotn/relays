@@ -1,8 +1,8 @@
-import type { AnnotationInterface, ArtifactType, DecoratorType, NewableType } from '@zeero/commons';
+import type { AnnotationInterface, ArtifactType, DecoratorType, NewableType } from '@zeeero/tokens';
 import type { ForeignKeyOptionsType } from '~/persister/types.ts';
 import type { ForeignKeyInterface } from '~/persister/interfaces.ts';
 
-import { AnnotationException, DecoratorKindEnum } from '@zeero/commons';
+import { AnnotationException, DecoratorKindEnum } from '@zeeero/tokens';
 
 export class ForeignKeyAnnotation implements AnnotationInterface, ForeignKeyInterface {
   name: string = 'ForeignKey';

@@ -1,4 +1,4 @@
-import { TracerInterface } from '@zeero/commons';
+import { TracerInterface } from '@zeeero/tokens';
 import { MigrationInterface } from '~/migrator/interfaces.ts';
 import { TransactionInterface } from '~/persister/interfaces.ts';
 

@@ -1,4 +1,4 @@
-import type { AnnotationInterface, ArtifactType, DecoratorType } from '@zeero/commons';
+import type { AnnotationInterface, ArtifactType, DecoratorType } from '@zeeero/tokens';
 import type { SchemaOptionsType } from '~/persister/types.ts';
 import type {
   ColumnInterface,
@@ -8,7 +8,7 @@ import type {
   SchemaInterface,
 } from '~/persister/interfaces.ts';
 
-import { AnnotationException, DecoratorKindEnum, DecoratorMetadata } from '@zeero/commons';
+import { AnnotationException, DecoratorKindEnum, DecoratorMetadata } from '@zeeero/tokens';
 
 import isColumn from '~/persister/guards/is-column.guard.ts';
 import isForeignKey from '~/persister/guards/is-foreign-key.guard.ts';

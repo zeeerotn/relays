@@ -1,4 +1,4 @@
-import { DecorationFunctionType, Decorator } from '@zeero/commons';
+import { DecorationFunctionType, Decorator } from '@zeeero/tokens';
 
 import HeadAnnotation from '~/controller/annotations/head.annotation.ts';
 

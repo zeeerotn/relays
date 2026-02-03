@@ -7,7 +7,7 @@ import type {
   TracerInterface,
   TraceType,
   TransportInterface,
-} from '@zeero/commons';
+} from '@zeeero/tokens';
 
 import type { ServerInterface } from '~/network/interfaces.ts';
 import type { ApplicationOptionsType } from '~/entrypoint/types.ts';
@@ -27,7 +27,7 @@ import {
   SpanEnum,
   StatusEnum,
   Tracer,
-} from '@zeero/commons';
+} from '@zeeero/tokens';
 
 import Http from '~/network/services/http.service.ts';
 import Middler from '~/controller/services/middler.service.ts';

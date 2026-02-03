@@ -1,8 +1,8 @@
-import type { AnnotationInterface, ArtifactType, DecoratorType } from '@zeero/commons';
+import type { AnnotationInterface, ArtifactType, DecoratorType } from '@zeeero/tokens';
 import type { IndexOptionsType } from '~/persister/types.ts';
 import type { IndexInterface } from '~/persister/interfaces.ts';
 
-import { AnnotationException, DecoratorKindEnum } from '@zeero/commons';
+import { AnnotationException, DecoratorKindEnum } from '@zeeero/tokens';
 
 export class IndexAnnotation implements AnnotationInterface, IndexInterface {
   name: string = 'Index';

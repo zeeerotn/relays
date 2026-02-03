@@ -1,4 +1,4 @@
-import { ArtifactType, DecoratorMetadata, Dispatcher, DispatcherInterface, Text } from '@zeero/commons';
+import { ArtifactType, DecoratorMetadata, Dispatcher, DispatcherInterface, Text } from '@zeeero/tokens';
 
 import type { RouterInterface } from '~/controller/interfaces.ts';
 import type { ActionType, ContextType, ControllerType, RouteType } from '~/controller/types.ts';

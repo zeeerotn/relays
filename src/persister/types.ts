@@ -1,4 +1,4 @@
-import type { KeyableType, RequireAtLeastOne } from '@zeero/commons';
+import type { KeyableType, RequireAtLeastOne } from '@zeeero/tokens';
 import type { OperatorType } from '~/querier/types.ts';
 import type { NamingInterface } from '~/persister/interfaces.ts';
 import type {

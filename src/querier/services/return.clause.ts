@@ -1,7 +1,7 @@
 import type { AliasColumnType, QueryType } from '~/querier/types.ts';
 import type { BuilderInterface, SelectClauseInterface } from '~/querier/interfaces.ts';
 
-import { Descriptor, Objector } from '@zeero/commons';
+import { Descriptor, Objector } from '@zeeero/tokens';
 
 @Descriptor({ properties: { enumerable: false } })
 export class Return<T extends BuilderInterface<T>> implements SelectClauseInterface<T> {

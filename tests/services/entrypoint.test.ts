@@ -1,11 +1,11 @@
 import { describe, it } from '@std/bdd';
 import { expect } from '@std/expect';
 
-import type { AnnotationInterface, ArtifactType, DecoratorType, PackInterface, TraceType, TransportInterface } from '@zeero/commons';
+import type { AnnotationInterface, ArtifactType, DecoratorType, PackInterface, TraceType, TransportInterface } from '@zeeero/tokens';
 import type { MiddlewareInterface } from '~/controller/interfaces.ts';
 import type { ContextType, EventType, NextFunctionType } from '~/controller/types.ts';
 
-import { ConsoleTransport, Decorator, Entity, Factory, Pack, Queue, Tracer } from '@zeero/commons';
+import { ConsoleTransport, Decorator, Entity, Factory, Pack, Queue, Tracer } from '@zeeero/tokens';
 import Application from '~/entrypoint/services/application.service.ts';
 import Anemic from '~/entrypoint/services/anemic.service.ts';
 import Controller from '~/controller/decorations/controller.decoration.ts';

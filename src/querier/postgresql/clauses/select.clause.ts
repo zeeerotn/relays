@@ -1,7 +1,7 @@
 import type { AliasColumnType, QueryFunction, QueryType } from '~/querier/types.ts';
 import type { BuilderInterface, RawClauseInterface, SelectClauseInterface } from '~/querier/interfaces.ts';
 
-import { Descriptor, Objector } from '@zeero/commons';
+import { Descriptor, Objector } from '@zeeero/tokens';
 
 import isQueryFunction from '~/querier/guards/is-query-function.guard.ts';
 import isRaw from '~/querier/guards/is-raw.guard.ts';

@@ -5,7 +5,7 @@ import type {
   KeyableType,
   NewableType,
   TracerInterface,
-} from '@zeero/commons';
+} from '@zeeero/tokens';
 import type { RequesterInterface, ResponserInterface } from '~/network/interfaces.ts';
 import type { FilterType } from '~/persister/types.ts';
 import type { MiddlewareInterface } from '~/controller/interfaces.ts';

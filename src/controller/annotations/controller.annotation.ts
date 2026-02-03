@@ -1,7 +1,7 @@
-import type { AnnotationInterface, ArtifactType, DecoratorType } from '@zeero/commons';
+import type { AnnotationInterface, ArtifactType, DecoratorType } from '@zeeero/tokens';
 import type { HttpAnnotationInterface } from '~/controller/interfaces.ts';
 
-import { AnnotationException, DecoratorKindEnum } from '@zeero/commons';
+import { AnnotationException, DecoratorKindEnum } from '@zeeero/tokens';
 
 export class ControllerAnnotation implements AnnotationInterface, HttpAnnotationInterface {
   name: string = 'Controller';

@@ -2,7 +2,7 @@ import type { FilterType } from '~/persister/types.ts';
 import type { ContextType, EventType, MiddlerType, NextFunctionType, RouteType } from '~/controller/types.ts';
 
 import MethodEnum from '~/network/enums/method.enum.ts';
-import { ArtifactType, DispatcherInterface, EntityInterface, NewableType } from '@zeero/commons';
+import { ArtifactType, DispatcherInterface, EntityInterface, NewableType } from '@zeeero/tokens';
 
 // deno-lint-ignore no-empty-interface
 export interface ControllerInterface {}

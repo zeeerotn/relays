@@ -1,7 +1,7 @@
 import type { QueryType } from '~/querier/types.ts';
 import type { RawClauseInterface } from '~/querier/interfaces.ts';
 
-import { Descriptor, Objector } from '@zeero/commons';
+import { Descriptor, Objector } from '@zeeero/tokens';
 
 @Descriptor({ properties: { enumerable: false } })
 export class Raw<T> implements RawClauseInterface<T> {

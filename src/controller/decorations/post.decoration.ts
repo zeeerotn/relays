@@ -1,4 +1,4 @@
-import { DecorationFunctionType, Decorator } from '@zeero/commons';
+import { DecorationFunctionType, Decorator } from '@zeeero/tokens';
 
 import PostAnnotation from '~/controller/annotations/post.annotation.ts';
 

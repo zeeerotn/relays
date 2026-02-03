@@ -1,10 +1,10 @@
-import type { TracerInterface } from '@zeero/commons';
+import type { TracerInterface } from '@zeeero/tokens';
 import type { MigrationInterface } from '~/migrator/interfaces.ts';
 import type { MigratorOptionsType } from '~/migrator/types.ts';
 import type { QuerierInterface } from '~/querier/interfaces.ts';
 import type { TransactionInterface } from '~/persister/interfaces.ts';
 
-import { StatusEnum } from '@zeero/commons';
+import { StatusEnum } from '@zeeero/tokens';
 
 export class TestTableMigration implements MigrationInterface {
   persist = true;

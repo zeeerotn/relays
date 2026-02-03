@@ -1,7 +1,7 @@
 import type { ConstraintType, QueryType } from '~/querier/types.ts';
 import type { BuilderInterface, ConstraintClauseInterface } from '~/querier/interfaces.ts';
 
-import { Descriptor, Objector } from '@zeero/commons';
+import { Descriptor, Objector } from '@zeeero/tokens';
 
 import ForeingActionEnum from '~/querier/enums/foreign-action.enum.ts';
 

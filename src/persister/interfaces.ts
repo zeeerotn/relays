@@ -1,4 +1,4 @@
-import type { AnnotationInterface, NewableType } from '@zeero/commons';
+import type { AnnotationInterface, NewableType } from '@zeeero/tokens';
 import type {
   ActionOptionsType,
   ClientOptionsType,

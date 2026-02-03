@@ -1,4 +1,4 @@
-import type { NewableType } from '@zeero/commons';
+import type { NewableType } from '@zeeero/tokens';
 import type { QueryType } from '~/querier/types.ts';
 import type { CursorInterface, RepositoryInterface, RepositoryQueryInterface, CursorOptionsType } from '~/persister/interfaces.ts';
 import type {
@@ -10,7 +10,7 @@ import type {
 } from '~/persister/types.ts';
 import type { QueryQuerierInterface } from '~/querier/interfaces.ts';
 
-import { DecoratorMetadata, isBoolean, isString, Objector, Text } from '@zeero/commons';
+import { DecoratorMetadata, isBoolean, isString, Objector, Text } from '@zeeero/tokens';
 
 import SchemaAnnotation from '~/persister/annotations/schema.annotation.ts';
 import Raw from '~/querier/services/raw.clause.ts';

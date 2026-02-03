@@ -1,5 +1,5 @@
-import type { AnnotationInterface, ArtifactType, DecoratorType } from '@zeero/commons';
-import { AnnotationException, ConsumerAnnotation, Decorator, DecoratorKindEnum } from '@zeero/commons';
+import type { AnnotationInterface, ArtifactType, DecoratorType } from '@zeeero/tokens';
+import { AnnotationException, ConsumerAnnotation, Decorator, DecoratorKindEnum } from '@zeeero/tokens';
 import { HttpAnnotationInterface } from '~/controller/interfaces.ts';
 
 export class TraceAnnotation implements AnnotationInterface, HttpAnnotationInterface {

@@ -1,7 +1,7 @@
 import type { BuilderInterface, OffsetClauseInterface } from '~/querier/interfaces.ts';
 import type { QueryType } from '~/querier/types.ts';
 
-import { Descriptor, Objector } from '@zeero/commons';
+import { Descriptor, Objector } from '@zeeero/tokens';
 
 @Descriptor({ properties: { enumerable: false } })
 export class Offset<T extends BuilderInterface<T>> implements OffsetClauseInterface<T> {

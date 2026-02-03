@@ -2,7 +2,7 @@ import type { ColumnType } from '~/persister/types.ts';
 import type { QueryType, ColumnRowType } from '~/querier/types.ts';
 import type { BuilderInterface, ColumnClauseInterface } from '~/querier/interfaces.ts';
 
-import { Descriptor, Objector } from '@zeero/commons';
+import { Descriptor, Objector } from '@zeeero/tokens';
 import Constraint from '~/querier/postgresql/clauses/constraint.clause.ts';
 
 @Descriptor({ properties: { enumerable: false } })

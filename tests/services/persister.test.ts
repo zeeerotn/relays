@@ -4,7 +4,7 @@ import { expect } from '@std/expect';
 import type { CommonOptionsType, FilterPredicateType } from '~/persister/types.ts';
 import type { FilterType } from '~/persister/types.ts';
 
-import { Factory } from '@zeero/commons';
+import { Factory } from '@zeeero/tokens';
 import Schema from '~/persister/decorations/schema.decoration.ts';
 import Column from '~/persister/decorations/column.decoration.ts';
 import ForeignKey from '~/persister/decorations/foreign-key.decoration.ts';

@@ -1,4 +1,4 @@
-import type { NewableType } from '@zeero/commons';
+import type { NewableType } from '@zeeero/tokens';
 import type { CursorInterface, CursorOptionsType, RepositoryInterface } from '~/persister/interfaces.ts';
 import type { FilterType } from '~/persister/types.ts';
 

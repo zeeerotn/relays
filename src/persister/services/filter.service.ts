@@ -1,7 +1,7 @@
 import type { FilterInterface } from '~/persister/interfaces.ts';
 import type { FilterDictionaryType, FilterPredicateType, FilterSelectType, FilterType } from '~/persister/types.ts';
 
-import { isString } from '@zeero/commons/guards';
+import { isString } from '@zeeero/tokens/guards';
 
 export class Filter implements FilterInterface {
   public dictionary: FilterDictionaryType = {

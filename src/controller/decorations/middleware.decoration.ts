@@ -1,4 +1,4 @@
-import { DecorationFunctionType, Decorator } from '@zeero/commons';
+import { DecorationFunctionType, Decorator } from '@zeeero/tokens';
 
 import MiddlewareAnnotation from '~/controller/annotations/middleware.annotation.ts';
 

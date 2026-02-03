@@ -6,10 +6,10 @@ import type {
   MigratorOptionsType,
 } from '~/migrator/types.ts';
 import type { MigrationInterface, MigratorInterface } from '~/migrator/interfaces.ts';
-import type { ContainerInterface, TracerInterface } from '@zeero/commons';
+import type { ContainerInterface, TracerInterface } from '@zeeero/tokens';
 
 import { expandGlob, WalkEntry } from '@std/fs';
-import { SpanEnum, StatusEnum } from '@zeero/commons';
+import { SpanEnum, StatusEnum } from '@zeeero/tokens';
 import Raw from '~/querier/services/raw.clause.ts'
 
 export class Migrator implements MigratorInterface {

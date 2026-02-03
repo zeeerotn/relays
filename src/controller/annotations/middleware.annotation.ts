@@ -1,6 +1,6 @@
-import type { AnnotationInterface, ArtifactType, DecorationType, DecoratorType } from '@zeero/commons';
+import type { AnnotationInterface, ArtifactType, DecorationType, DecoratorType } from '@zeeero/tokens';
 
-import { AnnotationException, ConsumerAnnotation, Decorator, DecoratorKindEnum } from '@zeero/commons';
+import { AnnotationException, ConsumerAnnotation, Decorator, DecoratorKindEnum } from '@zeeero/tokens';
 
 export class MiddlewareAnnotation implements AnnotationInterface {
   readonly name: string = 'Middleware';

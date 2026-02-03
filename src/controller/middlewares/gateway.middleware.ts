@@ -1,4 +1,4 @@
-import type { AnnotationInterface, ArtifactType, DecoratorType } from '@zeero/commons';
+import type { AnnotationInterface, ArtifactType, DecoratorType } from '@zeeero/tokens';
 import type { ControllerInterface, MiddlewareInterface } from '~/controller/interfaces.ts';
 import type { ContextType, EventType, NextFunctionType } from '~/controller/types.ts';
 

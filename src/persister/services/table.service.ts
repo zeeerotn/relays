@@ -1,9 +1,9 @@
 import type { QueryType } from '~/querier/types.ts';
 import type { RepositoryInterface, RepositoryTableInterface } from '~/persister/interfaces.ts';
 import type { ExecuteResultType } from '~/persister/types.ts';
-import type { NewableType } from '@zeero/commons';
+import type { NewableType } from '@zeeero/tokens';
 
-import { DecoratorMetadata, isClass } from '@zeero/commons';
+import { DecoratorMetadata, isClass } from '@zeeero/tokens';
 
 import SchemaAnnotation from '~/persister/annotations/schema.annotation.ts';
 import isRelation from '~/persister/guards/is-foreign-key.guard.ts';

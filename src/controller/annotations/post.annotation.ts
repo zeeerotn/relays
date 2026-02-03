@@ -1,5 +1,5 @@
-import type { AnnotationInterface, ArtifactType, DecoratorType, EntityInterface, NewableType } from '@zeero/commons';
-import { AnnotationException, ConsumerAnnotation, Decorator, DecoratorKindEnum } from '@zeero/commons';
+import type { AnnotationInterface, ArtifactType, DecoratorType, EntityInterface, NewableType } from '@zeeero/tokens';
+import { AnnotationException, ConsumerAnnotation, Decorator, DecoratorKindEnum } from '@zeeero/tokens';
 import { HttpAnnotationInterface } from '~/controller/interfaces.ts';
 
 export class PostAnnotation implements AnnotationInterface, HttpAnnotationInterface {

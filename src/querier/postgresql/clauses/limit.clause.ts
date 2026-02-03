@@ -1,7 +1,7 @@
 import type { BuilderInterface, LimitClauseInterface } from '~/querier/interfaces.ts';
 import type { QueryType } from '~/querier/types.ts';
 
-import { Descriptor, Objector } from '@zeero/commons';
+import { Descriptor, Objector } from '@zeeero/tokens';
 
 @Descriptor({ properties: { enumerable: false } })
 export class Limit<T extends BuilderInterface<T>> implements LimitClauseInterface<T> {

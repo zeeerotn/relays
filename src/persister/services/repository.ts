@@ -1,4 +1,4 @@
-import type { AnnotationInterface, NewableType } from '@zeero/commons';
+import type { AnnotationInterface, NewableType } from '@zeeero/tokens';
 import type { QueryType } from '~/querier/types.ts';
 import type { QuerierInterface } from '~/querier/interfaces.ts';
 import type {
@@ -15,7 +15,7 @@ import type {
   SchemaInterface,
 } from '~/persister/interfaces.ts';
 
-import { DecoratorMetadata, Text } from '@zeero/commons';
+import { DecoratorMetadata, Text } from '@zeeero/tokens';
 import Query from '~/persister/services/query.service.ts';
 import Table from '~/persister/services/table.service.ts';
 import Querier from '~/querier/services/querier.service.ts';

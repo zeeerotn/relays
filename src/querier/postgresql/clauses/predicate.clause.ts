@@ -1,7 +1,7 @@
 import type { BuilderInterface, PredicateClauseInterface, RawClauseInterface } from '~/querier/interfaces.ts';
 import type { OperatorType, PredicateType, QueryFunction, QueryType, TermType } from '~/querier/types.ts';
 
-import { Descriptor, Objector } from '@zeero/commons';
+import { Descriptor, Objector } from '@zeeero/tokens';
 
 import isExpression from '~/querier/guards/is-expression.guard.ts';
 import isMiddleOpeartor from '~/querier/guards/is-middle-operator.guard.ts';

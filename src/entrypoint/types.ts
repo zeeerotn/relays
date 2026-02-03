@@ -1,7 +1,7 @@
 import type { ServerOptionsType } from '~/network/types.ts';
 import type { MiddlewareInterface } from '~/controller/interfaces.ts';
 
-import { NewableType } from '@zeero/commons';
+import { NewableType } from '@zeeero/tokens';
 import EventEnum from '~/controller/enums/event.enum.ts';
 
 export type HandlerType = {

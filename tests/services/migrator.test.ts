@@ -3,7 +3,7 @@ import { expect } from '@std/expect';
 
 import type { CommonOptionsType } from '~/persister/types.ts';
 
-import { Container, Tracer } from '@zeero/commons';
+import { Container, Tracer } from '@zeeero/tokens';
 import Migrator from '~/migrator/services/migrator.service.ts';
 import Postgresql from '~/persister/postgresql/postgresql.database.ts';
 import Querier from '~/querier/services/querier.service.ts';

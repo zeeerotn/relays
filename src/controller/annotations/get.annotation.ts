@@ -1,8 +1,8 @@
 import type { FilterType } from '~/persister/types.ts';
-import type { AnnotationInterface, ArtifactType, DecoratorType } from '@zeero/commons';
+import type { AnnotationInterface, ArtifactType, DecoratorType } from '@zeeero/tokens';
 import type { HttpAnnotationInterface } from '~/controller/interfaces.ts';
 
-import { AnnotationException, ConsumerAnnotation, Decorator, DecoratorKindEnum } from '@zeero/commons';
+import { AnnotationException, ConsumerAnnotation, Decorator, DecoratorKindEnum } from '@zeeero/tokens';
 
 export class GetAnnotation implements AnnotationInterface, HttpAnnotationInterface {
   name: string = 'Get';

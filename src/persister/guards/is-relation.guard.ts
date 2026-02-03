@@ -1,4 +1,4 @@
-import { AnnotationInterface } from '@zeero/commons';
+import { AnnotationInterface } from '@zeeero/tokens';
 import { RelationInterface } from '~/persister/interfaces.ts';
 
 export const isRelation = (x: any): x is RelationInterface & AnnotationInterface => {

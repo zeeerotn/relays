@@ -1,8 +1,8 @@
-import type { AnnotationInterface, ArtifactType, DecoratorType, KeyableType, NewableType } from '@zeero/commons';
+import type { AnnotationInterface, ArtifactType, DecoratorType, KeyableType, NewableType } from '@zeeero/tokens';
 import type { RelationOptionsType } from '~/persister/types.ts';
 import type { RelationInterface } from '~/persister/interfaces.ts';
 
-import { AnnotationException, DecoratorKindEnum } from '@zeero/commons';
+import { AnnotationException, DecoratorKindEnum } from '@zeeero/tokens';
 
 export class OneAnnotation implements AnnotationInterface, RelationInterface {
   name: string = 'One';

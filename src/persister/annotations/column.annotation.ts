@@ -1,8 +1,8 @@
-import type { AnnotationInterface, ArtifactType, DecoratorType } from '@zeero/commons';
+import type { AnnotationInterface, ArtifactType, DecoratorType } from '@zeeero/tokens';
 import type { ColumnOptionsType, ColumnType } from '~/persister/types.ts';
 import type { ColumnInterface } from '~/persister/interfaces.ts';
 
-import { AnnotationException, DecoratorKindEnum } from '@zeero/commons';
+import { AnnotationException, DecoratorKindEnum } from '@zeeero/tokens';
 
 export class ColumnAnnotation implements AnnotationInterface, ColumnInterface {
   name: string = 'Column';

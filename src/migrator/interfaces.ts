@@ -1,4 +1,4 @@
-import type { ContainerInterface, TracerInterface } from '@zeero/commons';
+import type { ContainerInterface, TracerInterface } from '@zeeero/tokens';
 import type { DatabaseInterface, TransactionInterface } from '~/persister/interfaces.ts';
 import type { QuerierInterface } from '~/querier/interfaces.ts';
 import type { MigrationActionType, MigratorOptionsType } from '~/migrator/types.ts';
