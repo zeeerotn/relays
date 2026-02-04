@@ -90,19 +90,9 @@ export class Constraint<T extends BuilderInterface<T>> implements ConstraintClau
       if (this.value.default) {
         if (Array.isArray(this.value.default)) {
           text.push(`DEFAULT '{${this.value.default.map((v) => `"${v}"`).join(',')}}'`);
-        } else if (typeof this.value.default === 'string') {
-          // Quote string defaults, but don't quote keywords like CURRENT_TIMESTAMP
-          const upperValue = this.value.default.toUpperCase();
-          if (
-            upperValue === 'CURRENT_TIMESTAMP' || upperValue === 'NOW()' || upperValue === 'NULL' ||
-            upperValue === 'DEFAULT'
-          ) {
-            text.push(`DEFAULT ${this.value.default}`);
-          } else {
-            text.push(`DEFAULT '${this.value.default}'`);
-          }
         } else {
-          // Numbers don't need quotes
+          // Use the value as-is without automatic quoting
+          // Users should provide quotes explicitly if needed (e.g., "'literal string'")
           text.push(`DEFAULT ${this.value.default}`);
         }
       }
