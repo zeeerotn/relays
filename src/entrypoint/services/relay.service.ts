@@ -1,6 +1,6 @@
 import type { PackInterface, TracerInterface } from '@zeeero/tokens';
 import type { ServerOptionsType } from '~/network/types.ts';
-import type { AnemicInterface, ApplicationInterface } from '~/entrypoint/interfaces.ts';
+import type { RelayInterface, ApplicationInterface } from '~/entrypoint/interfaces.ts';
 import type { RequesterInterface, ResponserInterface } from '~/network/interfaces.ts';
 import type { ContextType, RouteType } from '~/controller/types.ts';
 import type { HandlerType } from '~/entrypoint/types.ts';
@@ -12,11 +12,11 @@ import Requester from '~/network/services/requester.service.ts';
 import MethodEnum from '~/network/enums/method.enum.ts';
 import EventEnum from '~/controller/enums/event.enum.ts';
 
-export class Anemic implements AnemicInterface {
+export class Relay implements RelayInterface {
   private dispatcher = new Dispatcher<{ boot: any[]; start: any[]; stop: any[] }>();
 
   constructor(public application: ApplicationInterface) {
-    const tracer = this.application.tracer.start({ name: 'anemic', kind: SpanEnum.INTERNAL });
+    const tracer = this.application.tracer.start({ name: 'relays', kind: SpanEnum.INTERNAL });
 
     for (const packName of application.packer.packs) {
       const pack = application.packer.container.construct<PackInterface>(packName);
@@ -31,9 +31,6 @@ export class Anemic implements AnemicInterface {
           } catch (error: any) {
             bootSpan.error(String(error?.message || error));
             bootSpan.status(StatusEnum.REJECTED);
-            bootSpan.attributes({
-              error: { name: error.name, message: String(error?.message || error), cause: error.cause },
-            });
             throw error;
           }
         });
@@ -49,9 +46,6 @@ export class Anemic implements AnemicInterface {
           } catch (error: any) {
             startSpan.error(String(error?.message || error));
             startSpan.status(StatusEnum.REJECTED);
-            startSpan.attributes({
-              error: { name: error.name, message: String(error?.message || error), cause: error.cause },
-            });
             throw error;
           }
         });
@@ -67,9 +61,6 @@ export class Anemic implements AnemicInterface {
           } catch (error: any) {
             stopSpan.error(String(error?.message || error));
             stopSpan.status(StatusEnum.REJECTED);
-            stopSpan.attributes({
-              error: { name: error.name, message: String(error?.message || error), cause: error.cause },
-            });
             throw error;
           }
         });
@@ -78,7 +69,7 @@ export class Anemic implements AnemicInterface {
 
     for (const server of this.application.servers) {
       this.dispatcher.subscribe('start', async () => {
-        const tracer = this.application.tracer.start({ name: 'anemic', kind: SpanEnum.SERVER });
+        const tracer = this.application.tracer.start({ name: 'relays', kind: SpanEnum.SERVER });
         await server.start(async (request, socket) => {
           const resources = {
             system: {
@@ -104,9 +95,6 @@ export class Anemic implements AnemicInterface {
             return response;
           } catch (error: any) {
             handlerTracer.error(error);
-            handlerTracer.attributes({
-              error: { name: error.name, message: String(error?.message || error), stack: error.stack }
-            });
             handlerTracer.status(StatusEnum.REJECTED);
           }
 
@@ -211,4 +199,4 @@ export class Anemic implements AnemicInterface {
   }
 }
 
-export default Anemic;
+export default Relay;

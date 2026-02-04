@@ -5,9 +5,9 @@ import type { AnnotationInterface, ArtifactType, DecoratorType, PackInterface, T
 import type { MiddlewareInterface } from '~/controller/interfaces.ts';
 import type { ContextType, EventType, NextFunctionType } from '~/controller/types.ts';
 
-import { ConsoleTransport, Decorator, Entity, Factory, Pack, Queue, Tracer } from '@zeeero/tokens';
+import { Decorator, Entity, Factory, Pack, Queue, Tracer } from '@zeeero/tokens';
 import Application from '~/entrypoint/services/application.service.ts';
-import Anemic from '~/entrypoint/services/anemic.service.ts';
+import Relay from '~/entrypoint/services/relay.service.ts';
 import Controller from '~/controller/decorations/controller.decoration.ts';
 import Get from '~/controller/decorations/get.decoration.ts';
 import Post from '~/controller/decorations/post.decoration.ts';
@@ -134,7 +134,7 @@ describe('entrypoint', () => {
 
   const mockTracer = {
     name: 'Tracer',
-    target: new Tracer(mockQueue, { name: 'AnemicTest' }),
+    target: new Tracer(mockQueue, { name: 'RelayTest' }),
   };
 
   describe('simple server', () => {
@@ -161,7 +161,7 @@ describe('entrypoint', () => {
       }
     }
 
-    const anemic = new Anemic(
+    const relay = new Relay(
       new Application(App, {
         http: { name: 'Joey', port: 3000 },
         middlewares: [GatewayMiddleware, ResponseMiddleware],
@@ -169,23 +169,23 @@ describe('entrypoint', () => {
     );
 
     it('boot', async () => {
-      await anemic.boot();
+      await relay.boot();
 
       expect(bootText).toEqual('onBoot reached');
     });
 
     it('fetch', async () => {
-      await anemic.start();
+      await relay.start();
       const response = await fetch('http://0.0.0.0:3000/health/status', { method: 'get' });
       const responseText = await response.text();
-      await anemic.stop();
+      await relay.stop();
 
       expect(responseText).toEqual('{"status":"OK"}');
     });
 
     it('start stop again', async () => {
-      await anemic.start();
-      await anemic.stop();
+      await relay.start();
+      await relay.stop();
     });
   });
 
@@ -196,7 +196,7 @@ describe('entrypoint', () => {
     })
     class App implements PackInterface {}
 
-    const anemic2 = new Anemic(
+    const relay2 = new Relay(
       new Application(App, {
         http: { name: 'Chandler', port: 3001 },
         middlewares: [GatewayMiddleware, ResponseMiddleware],
@@ -204,10 +204,10 @@ describe('entrypoint', () => {
     );
 
     it('fetch', async () => {
-      await anemic2.start();
+      await relay2.start();
       const response = await fetch('http://0.0.0.0:3001/test', { method: 'get' });
       const responseText = await response.text();
-      await anemic2.stop();
+      await relay2.stop();
 
       expect(responseText).toEqual('reached getTestMiddleware');
     });
@@ -220,7 +220,7 @@ describe('entrypoint', () => {
     })
     class App implements PackInterface {}
 
-    const anemic = new Anemic(
+    const relay = new Relay(
       new Application(App, {
         http: { name: 'Ross', port: 3002 },
         middlewares: [
@@ -231,7 +231,7 @@ describe('entrypoint', () => {
       }),
     );
 
-    await anemic.start();
+    await relay.start();
 
     const response1 = await fetch('http://0.0.0.0:3002/test', { method: 'get' });
     const response1Text = await response1.text();
@@ -252,6 +252,6 @@ describe('entrypoint', () => {
 
     expect(error).toBe('Internal Server Error');
 
-    await anemic.stop();
+    await relay.stop();
   });
 });

@@ -9,6 +9,8 @@ import type {
   TransportInterface,
 } from '@zeeero/tokens';
 
+import denoConfig from '-/deno.json' with { type: 'json' };
+
 import type { ServerInterface } from '~/network/interfaces.ts';
 import type { ApplicationOptionsType } from '~/entrypoint/types.ts';
 import type { ApplicationInterface } from '~/entrypoint/interfaces.ts';
@@ -58,7 +60,7 @@ export class Application implements ApplicationInterface {
     if (!this.container.collection.get('Resourcer')) {
       const resourcer = {
         name: 'Resourcer',
-        target: new Resourcer({ service: { name: 'anemic', version: '0.20.0' } }),
+        target: new Resourcer({ service: { name: 'relays', version: denoConfig.version } }),
       };
       this.packer.container.add([resourcer], 'provider');
     }
@@ -74,7 +76,7 @@ export class Application implements ApplicationInterface {
         processors: [new ConsoleTransport({ pretty: true })],
       })
 
-      const tracer = { name: 'Tracer', target: new Tracer(queue, { name: 'Anemic' }) };
+      const tracer = { name: 'Tracer', target: new Tracer(queue, { name: 'Relays' }) };
       
       this.packer.container.add([tracer], 'provider');
       this.packer.container.add([tracer], 'consumer');
@@ -83,10 +85,10 @@ export class Application implements ApplicationInterface {
     this.tracer = this.packer.container.construct<TracerInterface>('Tracer') as TracerInterface;
 
     const tracer = this.tracer.start({ name: 'application' });
+    const platform = this.resourcer.getPlatform();
 
-    // @TODO better way to expose current package version
-    this.tracer.info(`Anemic Framework v0.20.0`);
-    this.tracer.info(`Running Deno v${Deno.version.deno} & Typescript v${Deno.version.typescript}`);
+    this.tracer.info(`Relays v${denoConfig.version}`);
+    this.tracer.info(`${platform?.name} (${platform?.engine}) v${platform?.version} & ${platform?.language}`);
 
     this.setServers(tracer);
     this.setMiddlewares(tracer);
@@ -186,10 +188,23 @@ export class Application implements ApplicationInterface {
     this.middler = new Middler();
     this.middler.wirefy(artifacts);
 
-    child.info(`Global middlewares injected`);
+    for (const middlewares of Object.values(this.middler.middlewares)) {
+      const events = [
+        EventEnum.BEFORE,
+        EventEnum.MIDDLE,
+        EventEnum.AFTER,
+        EventEnum.EXCEPTION,
+      ]
+
+      for (const event of events) {
+        for (const middleware of middlewares[event]) {
+          child.info(`${middleware.constructor.name} registered for ${event} event`);
+        }
+      }
+    }
+
     child.event('middlewares.injected');
     child.status(StatusEnum.RESOLVED);
-    child.attributes({ count: Object.keys(this.middler.middlewares).length });
 
     child.end();
   }
@@ -211,7 +226,6 @@ export class Application implements ApplicationInterface {
 
     child.event('routes.routed');
     child.status(StatusEnum.RESOLVED);
-    child.attributes({ count: this.router.size });
     child.end();
   }
 
@@ -254,8 +268,6 @@ export class Application implements ApplicationInterface {
             return a(context);
           });
         } catch (error: any) {
-          // @TODO maybe we should truncate the error cause to avoid circular references or big objects
-          // @TODO also expose some knob to configure the truncate length or strategy
           tracer.attributes({ error: { name: error.name, message: error.message, cause: error.cause ?? 'unknown' } });
           tracer.status(StatusEnum.REJECTED);
           throw error;

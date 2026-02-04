@@ -1,7 +1,7 @@
 import Middler from '~/controller/services/middler.service.ts';
 import Router from '~/controller/services/router.service.ts';
 
-import Anemic from '~/entrypoint/services/anemic.service.ts';
+import Relay from '~/entrypoint/services/relay.service.ts';
 import Application from '~/entrypoint/services/application.service.ts';
 
 import Ws from '~/network/services/ws.service.ts';
@@ -23,7 +23,7 @@ import Querier from '~/querier/services/querier.service.ts';
 export { default as Middler } from '~/controller/services/middler.service.ts';
 export { default as Router } from '~/controller/services/router.service.ts';
 
-export { default as Anemic } from '~/entrypoint/services/anemic.service.ts';
+export { default as Relay } from '~/entrypoint/services/relay.service.ts';
 export { default as Application } from '~/entrypoint/services/application.service.ts';
 
 export { default as Ws } from '~/network/services/ws.service.ts';
@@ -43,7 +43,7 @@ export { default as Builder } from '~/querier/services/builder.services.ts';
 export { default as Querier } from '~/querier/services/querier.service.ts';
 
 export default {
-  Anemic,
+  Relay,
   Application,
   Builder,
   Filter,

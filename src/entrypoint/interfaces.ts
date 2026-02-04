@@ -5,7 +5,7 @@ import { ServerInterface } from '~/network/interfaces.ts';
 import { ApplicationOptionsType } from './types.ts';
 import { ResourcerInterface } from '~/resourcer/interfaces.ts';
 
-export interface AnemicInterface {
+export interface RelayInterface {
   boot(...args: any[]): void;
   start(...args: any[]): void;
   stop(...args: any[]): void;
