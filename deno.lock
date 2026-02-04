@@ -16,7 +16,7 @@
     "jsr:@std/path@^1.0.8": "1.1.4",
     "jsr:@std/path@^1.1.4": "1.1.4",
     "jsr:@std/testing@1.0.17": "1.0.17",
-    "jsr:@zeeerotn/tokens@~0.6.1": "0.6.1",
+    "jsr:@zeeerotn/tokens@~0.6.2": "0.6.2",
     "npm:@types/node@*": "24.2.0"
   },
   "jsr": {
@@ -78,8 +78,8 @@
         "jsr:@std/internal@^1.0.12"
       ]
     },
-    "@zeeerotn/tokens@0.6.1": {
-      "integrity": "ade88826583ccfd69a4795e5720d806d7424d2fa7c6d715b84d1a2692476de0c"
+    "@zeeerotn/tokens@0.6.2": {
+      "integrity": "16566d6d00c292e9bc1cb82e09f405864bacefbcb9b220fe7b678eade63dc613"
     }
   },
   "npm": {
@@ -233,7 +233,7 @@
       "jsr:@std/expect@1.0.17",
       "jsr:@std/fs@^1.0.22",
       "jsr:@std/testing@1.0.17",
-      "jsr:@zeeerotn/tokens@~0.6.1"
+      "jsr:@zeeerotn/tokens@~0.6.2"
     ]
   }
 }
