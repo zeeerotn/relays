@@ -1,9 +1,10 @@
-import type {
+import {
   AnnotationType,
   ContainerInterface,
   DecorationType,
   PackerInterface,
   PackNewableType,
+  RedactorInterface,
   TracerInterface,
   TraceType,
   TransportInterface,
@@ -26,6 +27,7 @@ import {
   Metadata,
   Packer,
   Queue,
+  Redactor,
   SpanEnum,
   StatusEnum,
   Tracer,
@@ -45,6 +47,7 @@ export class Application implements ApplicationInterface {
   public middler!: MiddlerInterface;
   public tracer!: TracerInterface;
   public resourcer!: ResourcerInterface;
+  public redactor!: RedactorInterface;
   public servers: Array<ServerInterface> = [];
 
   constructor(
@@ -57,6 +60,18 @@ export class Application implements ApplicationInterface {
     this.packer = new Packer(pack, this.container);
     this.packer.unpack(this.pack);
 
+    if (!this.container.collection.get('Redactor')) {
+      const redactor = {
+        name: 'Redactor',
+        target: new Redactor([{
+          paths: ['*.authorization', '*.password'],
+          action: 'mask',
+          replacement: '****',
+        }]),
+      };
+      this.packer.container.add([redactor], 'provider');
+    }
+
     if (!this.container.collection.get('Resourcer')) {
       const resourcer = {
         name: 'Resourcer',
@@ -66,18 +81,20 @@ export class Application implements ApplicationInterface {
     }
 
     this.resourcer = this.packer.container.construct<ResourcerInterface>('Resourcer') as ResourcerInterface;
+    this.redactor = this.packer.container.construct<RedactorInterface>('Redactor') as RedactorInterface;
+
     if (!this.container.collection.get('Tracer')) {
       const queue = new Queue<TraceType, TransportInterface>({
-        processorFn: (batch, processors) => {
+        processorFn: (batch: TraceType | TraceType[], processors: any) => {
           for (const transport of processors) {
             transport.send(batch);
           }
         },
-        processors: [new ConsoleTransport({ pretty: true })],
-      })
+        processors: [new ConsoleTransport(this.redactor, { pretty: true })],
+      });
 
       const tracer = { name: 'Tracer', target: new Tracer(queue, { name: 'Relays' }) };
-      
+
       this.packer.container.add([tracer], 'provider');
       this.packer.container.add([tracer], 'consumer');
     }
@@ -194,7 +211,7 @@ export class Application implements ApplicationInterface {
         EventEnum.MIDDLE,
         EventEnum.AFTER,
         EventEnum.EXCEPTION,
-      ]
+      ];
 
       for (const event of events) {
         for (const middleware of middlewares[event]) {

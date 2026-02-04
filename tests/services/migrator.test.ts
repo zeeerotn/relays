@@ -2,8 +2,9 @@ import { afterAll, describe, it } from '@std/bdd';
 import { expect } from '@std/expect';
 
 import type { CommonOptionsType } from '~/persister/types.ts';
+import type { TraceType, TransportInterface } from '@zeeero/tokens';
 
-import { Container, Tracer } from '@zeeero/tokens';
+import { Container, Queue, Tracer } from '@zeeero/tokens';
 import Migrator from '~/migrator/services/migrator.service.ts';
 import Postgresql from '~/persister/postgresql/postgresql.database.ts';
 import Querier from '~/querier/services/querier.service.ts';
@@ -33,7 +34,11 @@ describe('migrator', () => {
 
   const database = new Postgresql(commonOptions, clientOptions);
   const querier = new Querier({ syntax: 'postgresql', placeholder: '$', placeholderType: 'counter' });
-  const tracer = new Tracer({ name: 'migrator-test', transports: [] });
+  const queue = new Queue<TraceType, TransportInterface>({
+    processorFn: () => {}, // No-op for tests
+    processors: [],
+  });
+  const tracer = new Tracer(queue, { name: 'migrator-test' });
   const container = new Container();
 
   const tableName = 'test_migrations';

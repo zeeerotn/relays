@@ -1,4 +1,4 @@
-import type { ContainerInterface, PackerInterface, PackNewableType, TracerInterface } from '@zeeero/tokens';
+import type { ContainerInterface, PackerInterface, PackNewableType, RedactorInterface, TracerInterface } from '@zeeero/tokens';
 import type { MiddlerInterface, RouterInterface } from '~/controller/interfaces.ts';
 
 import { ServerInterface } from '~/network/interfaces.ts';
@@ -20,6 +20,7 @@ export interface ApplicationInterface {
   servers: Array<ServerInterface>;
   resourcer: ResourcerInterface;
   tracer: TracerInterface;
+  redactor: RedactorInterface;
   options: ApplicationOptionsType;
 }
 
