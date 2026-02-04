@@ -32,10 +32,14 @@ export class TestTableMigration implements MigrationInterface {
       this.tracer.info(`Test table created`);
       this.tracer.status(StatusEnum.RESOLVED);
     } catch (error: any) {
-      this.tracer.error(`Error executing migration up: ${error.message}`);
+      this.tracer.error('Error on migrator executing up', {
+        error: {
+          name: error.name,
+          message: String(error?.message || error),
+          cause: error.cause ?? 'unknown',
+        },
+      });
       this.tracer.status(StatusEnum.REJECTED);
-      this.tracer.attributes({ error: { name: error.name, message: error.message, cause: error.cause ?? 'unknown' } });
-
       throw error;
     }
 
@@ -51,9 +55,14 @@ export class TestTableMigration implements MigrationInterface {
       this.tracer.info(`Test table dropped`);
       this.tracer.status(StatusEnum.RESOLVED);
     } catch (error: any) {
-      this.tracer.error(`Error executing migration down: ${error.message}`);
+      this.tracer.error('Error on migrator executing down', {
+        error: {
+          name: error.name,
+          message: String(error?.message || error),
+          cause: error.cause ?? 'unknown',
+        },
+      });
       this.tracer.status(StatusEnum.REJECTED);
-      this.tracer.attributes({ error: { name: error.name, message: error.message, cause: error.cause ?? 'unknown' } });
 
       throw error;
     }

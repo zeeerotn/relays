@@ -1,6 +1,6 @@
 import type { PackInterface, TracerInterface } from '@zeeero/tokens';
 import type { ServerOptionsType } from '~/network/types.ts';
-import type { RelayInterface, ApplicationInterface } from '~/entrypoint/interfaces.ts';
+import type { ApplicationInterface, RelayInterface } from '~/entrypoint/interfaces.ts';
 import type { RequesterInterface, ResponserInterface } from '~/network/interfaces.ts';
 import type { ContextType, RouteType } from '~/controller/types.ts';
 import type { HandlerType } from '~/entrypoint/types.ts';
@@ -25,11 +25,19 @@ export class Relay implements RelayInterface {
       if (onBootMethod && typeof onBootMethod === 'function') {
         this.dispatcher.subscribe('boot', async (...args: any[]) => {
           const bootSpan = tracer.start({ name: `${String(packName)} boot`, kind: SpanEnum.INTERNAL });
+          bootSpan.attributes({ args });
+
           try {
             await onBootMethod(...args);
             bootSpan.status(StatusEnum.RESOLVED);
           } catch (error: any) {
-            bootSpan.error(String(error?.message || error));
+            bootSpan.error('Error on booting pack', {
+              error: {
+                name: error.name,
+                message: String(error?.message || error),
+                cause: error.cause,
+              },
+            });
             bootSpan.status(StatusEnum.REJECTED);
             throw error;
           }
@@ -40,11 +48,19 @@ export class Relay implements RelayInterface {
       if (onStartMethod && typeof onStartMethod === 'function') {
         this.dispatcher.subscribe('start', async (...args: any[]) => {
           const startSpan = tracer.start({ name: `${String(packName)} start`, kind: SpanEnum.INTERNAL });
+          startSpan.attributes({ args });
+
           try {
             await onStartMethod(...args);
             startSpan.status(StatusEnum.RESOLVED);
           } catch (error: any) {
-            startSpan.error(String(error?.message || error));
+            startSpan.error('Error on starting pack', {
+              error: {
+                name: error.name,
+                message: String(error?.message || error),
+                cause: error.cause,
+              },
+            });
             startSpan.status(StatusEnum.REJECTED);
             throw error;
           }
@@ -55,11 +71,19 @@ export class Relay implements RelayInterface {
       if (onStopMethod && typeof onStopMethod === 'function') {
         this.dispatcher.subscribe('stop', async (...args: any[]) => {
           const stopSpan = tracer.start({ name: `${String(packName)} stop`, kind: SpanEnum.INTERNAL });
+          stopSpan.attributes({ args });
+
           try {
             await onStopMethod(...args);
             stopSpan.status(StatusEnum.RESOLVED);
           } catch (error: any) {
-            stopSpan.error(String(error?.message || error));
+            stopSpan.error('Error on stopping pack', {
+              error: {
+                name: error.name,
+                message: String(error?.message || error),
+                cause: error.cause,
+              },
+            });
             stopSpan.status(StatusEnum.REJECTED);
             throw error;
           }
@@ -79,22 +103,40 @@ export class Relay implements RelayInterface {
             },
             memory: this.application.resourcer.getMemory(true),
           };
-          
+
           const handlerTracer = tracer.start({ name: `HANDLER ${resources.system?.pid}`, kind: SpanEnum.INTERNAL });
           handlerTracer.attributes(resources);
 
           try {
-            let response
+            let response;
             if (server.accepts.includes(MethodEnum.SOCKET)) {
-              response = await this.socketHandler(new Requester(request), new Responser(), server.options, handlerTracer, socket);
+              response = await this.socketHandler(
+                new Requester(request),
+                new Responser(),
+                server.options,
+                handlerTracer,
+                socket,
+              );
             } else {
-              response = await this.httpHandler(new Requester(request), new Responser(), server.options, handlerTracer, socket);
-            }            
+              response = await this.httpHandler(
+                new Requester(request),
+                new Responser(),
+                server.options,
+                handlerTracer,
+                socket,
+              );
+            }
 
             handlerTracer.status(StatusEnum.RESOLVED);
             return response;
           } catch (error: any) {
-            handlerTracer.error(error);
+            handlerTracer.error(`Error handling request`, {
+              error: {
+                name: error.name,
+                message: String(error?.message || error),
+                cause: error.cause ?? 'unknown'
+              },
+            });
             handlerTracer.status(StatusEnum.REJECTED);
           }
 
@@ -136,7 +178,12 @@ export class Relay implements RelayInterface {
     const container = this.application.packer.container.duplicate();
 
     readySpan.status(StatusEnum.RESOLVED);
-    readySpan.attributes({ method: requester.method, pathname: route.pathname, action: route.action, controller: route.controller });
+    readySpan.attributes({
+      method: requester.method,
+      pathname: route.pathname,
+      action: route.action,
+      controller: route.controller,
+    });
     readySpan.end();
 
     const responseTracer = tracer.start({ name: `response`, kind: SpanEnum.INTERNAL });
