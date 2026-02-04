@@ -21,7 +21,7 @@
     "@std/expect": "jsr:@std/expect@1.0.17",
     "@std/mock": "jsr:@std/testing@1.0.17/mock",
     "@deno/postgres": "jsr:@db/postgres@0.19.5",
-    "@zeeero/tokens": "jsr:@zeeerotn/tokens@^0.6.0"
+    "@zeeero/tokens": "jsr:@zeeerotn/tokens@^0.6.1"
   },
   "publish": {
     "include": [
