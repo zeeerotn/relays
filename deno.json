@@ -1,7 +1,6 @@
 {
   "name": "@zeeerotn/relays",
-  "version": "0.4.3",
-  "license": "GPL-3.0",
+  "version": "0.4.4",
   "exports": {
     ".": "./index.ts",
     "./annotations": "./annotations.ts",
