@@ -1,6 +1,6 @@
 {
   "name": "@zeeerotn/relays",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "exports": {
     ".": "./index.ts",
     "./annotations": "./annotations.ts",
@@ -20,7 +20,7 @@
     "@std/expect": "jsr:@std/expect@1.0.17",
     "@std/mock": "jsr:@std/testing@1.0.17/mock",
     "@deno/postgres": "jsr:@db/postgres@0.19.5",
-    "@zeeero/tokens": "jsr:@zeeerotn/tokens@^0.6.9"
+    "@zeeero/tokens": "jsr:@zeeerotn/tokens@^0.6.10"
   },
   "publish": {
     "include": [
