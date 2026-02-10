@@ -63,11 +63,11 @@ export class Application implements ApplicationInterface {
     if (!this.container.collection.get('Redactor')) {
       const redactor = {
         name: 'Redactor',
-        target: new Redactor([{
-          paths: ['*.authorization', '*.password'],
+        target: new Redactor({ rules: [{
+          paths: ['*.password'],
           action: 'mask',
           replacement: '****',
-        }]),
+        }] }),
       };
       this.packer.container.add([redactor], 'provider');
     }
