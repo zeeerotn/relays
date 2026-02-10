@@ -167,6 +167,11 @@ export class Relay implements RelayInterface {
     if (!route) {
       readySpan.event('route.not_found');
       readySpan.status(StatusEnum.REJECTED);
+      readySpan.attributes({
+        url: requester.url,
+        method: requester.method,
+        headers: Object.fromEntries(requester.headers.entries()),
+      });
       readySpan.end();
 
       return new Response(null, { status: 404 });
