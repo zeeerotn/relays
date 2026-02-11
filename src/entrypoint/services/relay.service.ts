@@ -189,16 +189,17 @@ export class Relay implements RelayInterface {
       action: route.action,
       controller: route.controller,
     });
-    readySpan.end();
-
+    
     const responseTracer = tracer.start({ name: `response`, kind: SpanEnum.INTERNAL });
 
     const handler: HandlerType = { event: EventEnum.BEFORE, attempts: 1, error: undefined };
     const context: ContextType = { handler, requester, responser, container, route, server, tracer: responseTracer };
     container.collection.set('Context', { artifact: { name: 'Context', target: context }, tags: ['P'] });
+    
+    readySpan.event('context.created');
 
-    responseTracer.event('context.created');
-
+    readySpan.end();
+    
     await this.execute(route, context);
 
     const status = responser.status || 200;
