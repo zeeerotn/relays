@@ -18,6 +18,8 @@ import OneAnnotation from '~/persister/annotations/one.annotation.ts';
 import RelationAnnotation from '~/persister/annotations/relation.annotation.ts';
 import SchemaAnnotation from '~/persister/annotations/schema.annotation.ts';
 
+import ModuleAnnotation from '~/modulator/annotations/module.annotation.ts';
+
 export { default as ConnectAnnotation } from '~/controller/annotations/connect.annotation.ts';
 export { default as ControllerAnnotation } from '~/controller/annotations/connect.annotation.ts';
 export { default as DeleteAnnotation } from '~/controller/annotations/delete.annotation.ts';
@@ -38,6 +40,7 @@ export { default as OneAnnotation } from '~/persister/annotations/one.annotation
 export { default as RelationAnnotation } from '~/persister/annotations/relation.annotation.ts';
 export { default as SchemaAnnotation } from '~/persister/annotations/schema.annotation.ts';
 
+export { default as ModuleAnnotation } from '~/modulator/annotations/module.annotation.ts';
 
 export default {
   ConnectAnnotation,
@@ -55,6 +58,7 @@ export default {
   ForeignKeyAnnotation,
   IndexAnnotation,
   ManyAnnotation,
+  ModuleAnnotation,
   OneAnnotation,
   RelationAnnotation,
   SchemaAnnotation,
