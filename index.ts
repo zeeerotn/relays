@@ -32,6 +32,7 @@ export * from '~/persister/interfaces.ts';
 export * from '~/persister/types.ts';
 export * from '~/resourcer/interfaces.ts';
 export * from '~/resourcer/types.ts';
+export * from '~/packer/interfaces.ts';
 export * from '~/packer/types.ts';
 export * from '~/migrator/interfaces.ts';
 export * from '~/migrator/types.ts';
