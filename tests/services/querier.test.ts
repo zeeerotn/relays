@@ -179,4 +179,17 @@ describe('querier', () => {
 
     expect(query.toQuery().text).toEqual("DELETE FROM users WHERE users.name IN ('Eduardo', 'Segura')");
   });
+
+  it('where with OR conditions', () => {
+    const query = new Query();
+
+    query
+      .select.column('*')
+      .from.table('users', 'u')
+      .where.or('u.email', 'eq', 'test@example.com').or('u.handle', 'eq', 'testuser');
+
+    expect(query.toQuery().text).toEqual(
+      'SELECT * FROM users AS u WHERE u.email = test@example.com OR u.handle = testuser',
+    );
+  });
 });

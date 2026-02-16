@@ -156,6 +156,33 @@ describe('persister', () => {
     expect(userResults.length).toBeGreaterThan(0);
   });
 
+  it('repository search with OR clause', async () => {
+    const query = userRepository.query.searchQuery({
+      select: { name: 'string', lastName: 'string' },
+      where: { 
+        or: [
+          { name: { eq: 'Eduardo' } },
+          { lastName: { eq: 'Segura' } }
+        ] 
+      },
+    });
+
+    expect(query.text).toContain('OR');
+    expect(query.text).not.toMatch(/WHERE.*=.*and.*=/i);
+    
+    const userResults = await userRepository.query.search({
+      select: { name: 'string', lastName: 'string' },
+      where: { 
+        or: [
+          { name: { eq: 'Eduardo' } },
+          { lastName: { eq: 'Segura' } }
+        ] 
+      },
+    });
+
+    expect(userResults.length).toBeGreaterThan(0);
+  });
+
   it('repository update records', async () => {
     const userAreateResult = await userRepository.query.update({ id: userC.id, lastName: 'Castro' });
 

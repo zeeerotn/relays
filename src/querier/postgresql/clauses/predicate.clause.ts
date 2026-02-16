@@ -117,7 +117,7 @@ export class Predicate<T extends BuilderInterface<T>> implements PredicateClause
       text.push(
         ...this.predicates.map((predicate, index: number) => {
           let text = '';
-          const type = `${index != 0 ? `${predicate.type} ` : ''}`;
+          const type = `${index != 0 ? `${predicate.type.toUpperCase()} ` : ''}`;
 
           const placeholder = `${options?.placeholder ? options.placeholder : ''}`;
 

@@ -439,7 +439,7 @@ export class Query<T extends NewableType<T>> implements RepositoryQueryInterface
               for (const [operator, value] of Object.entries(operation as any)) {
                 let withAlias = property;
                 if (options?.alias && !property.includes('.')) withAlias = `${options?.alias}.${property}`;
-                options.instance.where.and(
+                options.instance.where[condition](
                   this.repository.options.toTableNaming(withAlias),
                   operator as any,
                   value as any,
