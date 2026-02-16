@@ -11,6 +11,7 @@ import type { FilterType } from '~/persister/types.ts';
 import type { MiddlewareInterface } from '~/controller/interfaces.ts';
 import type { ServerOptionsType } from '~/network/types.ts';
 import type { HandlerType } from '~/entrypoint/types.ts';
+import type { NetworkType } from '~/packer/types.ts';
 
 import MethodEnum from '~/network/enums/method.enum.ts';
 import EventEnum from '~/controller/enums/event.enum.ts';
@@ -50,6 +51,7 @@ export type ContextType<T = BodyInit> = {
   requester: RequesterInterface<T>;
   responser: ResponserInterface;
   container: ContainerInterface;
+  network?: NetworkType;
   route: RouteType;
   server: ServerOptionsType;
   tracer: TracerInterface;

@@ -134,7 +134,7 @@ export class Relay implements RelayInterface {
               error: {
                 name: error.name,
                 message: String(error?.message || error),
-                cause: error.cause ?? 'unknown'
+                cause: error.cause ?? 'unknown',
               },
             });
             handlerTracer.status(StatusEnum.REJECTED);
@@ -162,6 +162,7 @@ export class Relay implements RelayInterface {
   ): Promise<Response> {
     const readySpan = tracer.start({ name: `request`, kind: SpanEnum.INTERNAL });
     const method = requester.method.toLowerCase() as any;
+    const network = this.application.packer.network;
     const route = this.application.router.routes[method]?.find((route) => route.pattern?.test(requester.url));
 
     if (!route) {
@@ -189,17 +190,26 @@ export class Relay implements RelayInterface {
       action: route.action,
       controller: route.controller,
     });
-    
+
     const responseTracer = tracer.start({ name: `response`, kind: SpanEnum.INTERNAL });
 
     const handler: HandlerType = { event: EventEnum.BEFORE, attempts: 1, error: undefined };
-    const context: ContextType = { handler, requester, responser, container, route, server, tracer: responseTracer };
+    const context: ContextType = {
+      handler,
+      requester,
+      responser,
+      container,
+      network,
+      route,
+      server,
+      tracer: responseTracer,
+    };
     container.collection.set('Context', { artifact: { name: 'Context', target: context }, tags: ['P'] });
-    
+
     readySpan.event('context.created');
 
     readySpan.end();
-    
+
     await this.execute(route, context);
 
     const status = responser.status || 200;

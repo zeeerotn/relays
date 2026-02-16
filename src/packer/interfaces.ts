@@ -2,7 +2,7 @@ import type { PackerInterface as PackerTokenInterface } from '@zeeero/tokens';
 import type { NetworkType } from '~/packer/types.ts';
 
 export interface PackerInterface extends PackerTokenInterface {
-  network?: NetworkType
+  network: NetworkType
 }
 
 export default {}

@@ -1,6 +1,8 @@
-import type { ContainerInterface, PackerInterface } from '@zeeero/tokens';
+import type { ContainerInterface } from '@zeeero/tokens';
 import type { PackNewableType } from '@zeeero/tokens';
 import type { NetworkType } from '~/packer/types.ts';
+import type { PackerInterface } from '~/packer/interfaces.ts';
+
 import { Packer as PackerToken, DecoratorMetadata } from '@zeeero/tokens';
 import PackAnnotation from '~/packer/annotations/pack.annotation.ts';
 
