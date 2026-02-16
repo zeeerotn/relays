@@ -1,6 +1,6 @@
 import type { KeyableType, RequireAtLeastOne } from '@zeeero/tokens';
 import type { OperatorType } from '~/querier/types.ts';
-import type { NamingInterface } from '~/persister/interfaces.ts';
+import type { NamingInterface, TransactionInterface } from '~/persister/interfaces.ts';
 import type {
   DeleteClauseInterface,
   IndexQuerierInterface,
@@ -246,7 +246,8 @@ export type RepositoryOptionsType = {
 
 export type RepositoryExecuteOptionsType = ExecuteOptionsType & {
   connection?: 'client' | 'transaction';
-  transaction?: TransactionOptionType;
+  transaction?: TransactionInterface
+  transactionOptions?: TransactionOptionType;
 };
 
 export type ActionOptionsType = RepositoryExecuteOptionsType & {

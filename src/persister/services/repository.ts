@@ -13,6 +13,7 @@ import type {
   RepositoryQueryInterface,
   RepositoryTableInterface,
   SchemaInterface,
+  TransactionInterface,
 } from '~/persister/interfaces.ts';
 
 import { DecoratorMetadata, Text } from '@zeeero/tokens';
@@ -88,30 +89,48 @@ export class Repository<T extends NewableType<T>> implements RepositoryInterface
     return result;
   }
 
-  public async executeWithTransaction(
+  public executeWithTransaction(
+    queriers: QueryType[],
+    options?: RepositoryExecuteOptionsType,
+  ): Promise<ExecuteResultType<InstanceType<T>>[]> {
+    if (options?.transaction) {
+      return this.executeWithExistingTransaction(queriers, options.transaction);
+    }
+
+    return this.executeWithNewTransaction(queriers, options);
+  }
+
+  private async executeWithNewTransaction(
     queriers: QueryType[],
     options?: RepositoryExecuteOptionsType,
   ): Promise<ExecuteResultType<InstanceType<T>>[]> {
     await using connection = await this.database.connection();
     await connection.connect();
 
-    await using transaction = connection.transaction(`${Date.now()}`, options?.transaction);
+    await using transaction = connection.transaction(`${Date.now()}`, options?.transactionOptions);
     await transaction.begin();
 
-    const result = await Promise.all(queriers.map((querier) => {
+    const result = await this.executeWithExistingTransaction(queriers, transaction);
+
+    await transaction.commit();
+
+    return result;
+  }
+
+  private executeWithExistingTransaction(
+    queriers: QueryType[],
+    transaction: TransactionInterface,
+  ): Promise<ExecuteResultType<InstanceType<T>>[]> {
+    return Promise.all(queriers.map((querier) => {
       let fields;
 
       if (querier.returns && querier.returns.length > 0) {
         fields = querier.returns?.map(this.options.toSchemaNaming);
       }
 
-      const options = { args: querier.args, fields };
-      return transaction.execute<InstanceType<T>>(querier.text, options);
+      const executeOptions = { args: querier.args, fields };
+      return transaction.execute<InstanceType<T>>(querier.text, executeOptions);
     }));
-
-    await transaction.commit();
-
-    return result;
   }
 }
 
