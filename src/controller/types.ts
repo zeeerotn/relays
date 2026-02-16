@@ -51,7 +51,7 @@ export type ContextType<T = BodyInit> = {
   requester: RequesterInterface<T>;
   responser: ResponserInterface;
   container: ContainerInterface;
-  network?: NetworkType;
+  network: NetworkType;
   route: RouteType;
   server: ServerOptionsType;
   tracer: TracerInterface;
