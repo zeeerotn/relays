@@ -39,10 +39,6 @@ export class Query<T extends NewableType<T>> implements RepositoryQueryInterface
           const transformedPropertyKey = this.repository.options.toTableNaming(decoration.key);
           if (typeof entity[propertyKey] !== 'undefined') {
             insert.column(transformedPropertyKey, entity[propertyKey]);
-          } else {
-            if (typeof decoration.annotation.options?.default !== 'undefined') {
-              insert.column(transformedPropertyKey, decoration.annotation.options?.default);
-            }
           }
           if (!options?.returns || options.returns.includes(propertyKey)) {
             returns.column(transformedPropertyKey);

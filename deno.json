@@ -1,6 +1,6 @@
 {
   "name": "@zeeerotn/relays",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "exports": {
     ".": "./index.ts",
     "./annotations": "./annotations.ts",
