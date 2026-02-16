@@ -25,7 +25,6 @@ import {
   Decorator,
   DecoratorMetadata,
   Metadata,
-  Packer,
   Queue,
   Redactor,
   SpanEnum,
@@ -38,6 +37,7 @@ import Middler from '~/controller/services/middler.service.ts';
 import Router from '~/controller/services/router.service.ts';
 import Ws from '~/network/services/ws.service.ts';
 import EventEnum from '~/controller/enums/event.enum.ts';
+import Packer from '~/packer/services/packer.service.ts';
 import Resourcer from '~/resourcer/services/resourcer.service.ts';
 
 export class Application implements ApplicationInterface {

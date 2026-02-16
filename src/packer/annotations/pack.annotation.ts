@@ -6,9 +6,9 @@ import type {
   ProviderType,
 } from '@zeeero/tokens';
 
-import { PackAnnotation } from '@zeeero/tokens';
+import { PackAnnotation as PackAnnotationToken } from '@zeeero/tokens';
 
-export class ModuleAnnotation extends PackAnnotation implements AnnotationInterface {
+export class PackAnnotation extends PackAnnotationToken implements AnnotationInterface {
   override readonly name: string = 'Pack';
 
   constructor(
@@ -23,4 +23,4 @@ export class ModuleAnnotation extends PackAnnotation implements AnnotationInterf
   }
 }
 
-export default ModuleAnnotation;
+export default PackAnnotation;

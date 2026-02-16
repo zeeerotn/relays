@@ -1,10 +1,10 @@
 import type { ContainerInterface } from '@zeeero/tokens';
 import type { PackNewableType } from '@zeeero/tokens';
-import type { NetworkType } from '~/modulator/types.ts';
-import { Packer, DecoratorMetadata } from '@zeeero/tokens';
-import ModuleAnnotation from '~/modulator/annotations/module.annotation.ts';
+import type { NetworkType } from '~/packer/types.ts';
+import { Packer as PackerToken, DecoratorMetadata } from '@zeeero/tokens';
+import PackAnnotation from '~/packer/annotations/pack.annotation.ts';
 
-export class Modulator extends Packer {
+export class Packer extends PackerToken {
   public network: NetworkType = { status: {} };
 
   constructor(pack: PackNewableType, container: ContainerInterface) {
@@ -17,7 +17,7 @@ export class Modulator extends Packer {
     const decorator = DecoratorMetadata.findByAnnotationInteroperableName(pack, 'pack', 'construct');
 
     if (decorator) {
-      const annotation = decorator.annotation.target as ModuleAnnotation;
+      const annotation = decorator.annotation.target as PackAnnotation;
 
       if (annotation.options.network?.status) {
         this.network.status = { ...this.network.status, ...annotation.options.network.status };
@@ -26,4 +26,4 @@ export class Modulator extends Packer {
   }
 }
 
-export default Modulator;
+export default Packer;

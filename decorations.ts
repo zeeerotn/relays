@@ -18,7 +18,7 @@ import One from '~/persister/decorations/one.decoration.ts';
 import Relation from '~/persister/decorations/relation.decoration.ts';
 import Schema from '~/persister/decorations/schema.decoration.ts';
 
-import Module from '~/modulator/decorations/module.decoration.ts';
+import Pack from '~/packer/decorations/pack.decoration.ts';
 
 export { default as Connect } from '~/controller/decorations/connect.decoration.ts';
 export { default as Controller } from '~/controller/decorations/controller.decoration.ts';
@@ -48,7 +48,7 @@ export { default as Relation } from '~/persister/decorations/relation.decoration
 export { default as Schema } from '~/persister/decorations/schema.decoration.ts';
 export { default as Structure } from '~/persister/decorations/column.decoration.ts';
 
-export { default as Module } from '~/modulator/decorations/module.decoration.ts';
+export { default as Pack } from '~/packer/decorations/pack.decoration.ts';
 
 export default {
   Connect,
@@ -66,7 +66,7 @@ export default {
   ForeignKey,
   Index,
   Many,
-  Module,
+  Pack,
   One,
   Relation,
   Schema,
