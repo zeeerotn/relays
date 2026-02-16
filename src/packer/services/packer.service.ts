@@ -1,10 +1,10 @@
-import type { ContainerInterface } from '@zeeero/tokens';
+import type { ContainerInterface, PackerInterface } from '@zeeero/tokens';
 import type { PackNewableType } from '@zeeero/tokens';
 import type { NetworkType } from '~/packer/types.ts';
 import { Packer as PackerToken, DecoratorMetadata } from '@zeeero/tokens';
 import PackAnnotation from '~/packer/annotations/pack.annotation.ts';
 
-export class Packer extends PackerToken {
+export class Packer extends PackerToken implements PackerInterface {
   public network: NetworkType = { status: {} };
 
   constructor(pack: PackNewableType, container: ContainerInterface) {

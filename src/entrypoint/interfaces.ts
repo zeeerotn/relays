@@ -1,9 +1,9 @@
-import type { ContainerInterface, PackerInterface, PackNewableType, RedactorInterface, TracerInterface } from '@zeeero/tokens';
+import type { ContainerInterface, PackNewableType, RedactorInterface, TracerInterface } from '@zeeero/tokens';
 import type { MiddlerInterface, RouterInterface } from '~/controller/interfaces.ts';
-
-import { ServerInterface } from '~/network/interfaces.ts';
-import { ApplicationOptionsType } from './types.ts';
-import { ResourcerInterface } from '~/resourcer/interfaces.ts';
+import type { ApplicationOptionsType } from '~/entrypoint/types.ts';
+import type { PackerInterface } from '~/packer/interfaces.ts';
+import type { ServerInterface } from '~/network/interfaces.ts';
+import type { ResourcerInterface } from '~/resourcer/interfaces.ts';
 
 export interface RelayInterface {
   boot(...args: any[]): void;

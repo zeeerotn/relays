@@ -2,7 +2,6 @@ import {
   AnnotationType,
   ContainerInterface,
   DecorationType,
-  PackerInterface,
   PackNewableType,
   RedactorInterface,
   TracerInterface,
@@ -17,6 +16,7 @@ import type { ApplicationOptionsType } from '~/entrypoint/types.ts';
 import type { ApplicationInterface } from '~/entrypoint/interfaces.ts';
 import type { MiddlerInterface, MiddlewareInterface, RouterInterface } from '~/controller/interfaces.ts';
 import type { ContextType, MiddlerType, NextFunctionType, RouteType } from '~/controller/types.ts';
+import type { PackerInterface } from '~/packer/interfaces.ts';
 import type { ResourcerInterface } from '~/resourcer/interfaces.ts';
 
 import {
