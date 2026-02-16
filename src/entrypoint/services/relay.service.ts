@@ -204,7 +204,11 @@ export class Relay implements RelayInterface {
       server,
       tracer: responseTracer,
     };
-    container.collection.set('Context', { artifact: { name: 'Context', target: context }, tags: ['P'] });
+
+    container.add([
+      { name: 'Context', target: context },
+      { name: 'Tracer', target: responseTracer }
+    ], 'provider');
 
     readySpan.event('context.created');
 
