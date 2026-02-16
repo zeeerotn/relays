@@ -17,7 +17,7 @@ import Postgresql from '~/persister/postgresql/postgresql.database.ts';
 
 import Migrator from '~/migrator/services/migrator.service.ts';
 
-import Modulator from '~/modulator/services/modulator.service.ts';
+import Packer from '~/packer/services/packer.service.ts';
 
 import Builder from '~/querier/services/builder.services.ts';
 import Querier from '~/querier/services/querier.service.ts';
@@ -41,7 +41,7 @@ export { default as Postgresql } from '~/persister/postgresql/postgresql.databas
 
 export { default as Migrator } from '~/migrator/services/migrator.service.ts';
 
-export { default as Modulator } from '~/modulator/services/modulator.service.ts';
+export { default as Packer } from '~/packer/services/packer.service.ts';
 
 export { default as Builder } from '~/querier/services/builder.services.ts';
 export { default as Querier } from '~/querier/services/querier.service.ts';
@@ -55,7 +55,7 @@ export default {
   Memory,
   Middler,
   Migrator,
-  Modulator,
+  Packer,
   Postgresql,
   Querier,
   Query,
