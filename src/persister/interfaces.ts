@@ -81,7 +81,7 @@ export interface ColumnInterface {
 }
 
 export interface ForeignKeyInterface {
-  referenceTable: string | NewableType<any>;
+  referenceTable: string | (() => NewableType<any>);
   options: ForeignKeyOptionsType;
 }
 

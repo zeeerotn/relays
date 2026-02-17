@@ -3,7 +3,7 @@ import type { RepositoryInterface, RepositoryTableInterface } from '~/persister/
 import type { ExecuteResultType } from '~/persister/types.ts';
 import type { NewableType } from '@zeeero/tokens';
 
-import { DecoratorMetadata, isClass } from '@zeeero/tokens';
+import { DecoratorMetadata } from '@zeeero/tokens';
 
 import SchemaAnnotation from '~/persister/annotations/schema.annotation.ts';
 import isRelation from '~/persister/guards/is-foreign-key.guard.ts';
@@ -33,20 +33,21 @@ class Table<T extends NewableType<T>> implements RepositoryTableInterface<T> {
       for (const decoration of this.repository.annotation.foreignKeys) {
         if (isRelation(decoration.annotation)) {
           let referenceTable = '';
-          if (isClass(decoration.annotation.referenceTable)) {
+          let referenceClass: NewableType<any> | null = null;
+
+          if (typeof decoration.annotation.referenceTable === 'function') {
+            referenceClass = decoration.annotation.referenceTable();
+            
             const referenceDecorator = DecoratorMetadata.findByAnnotationInteroperableName(
-              this.repository.schema,
+              referenceClass,
               'Schema',
             );
 
             if (referenceDecorator) {
               const referenceSchema: SchemaAnnotation = referenceDecorator.annotation.target as any;
-
               referenceTable = referenceSchema.table;
             }
-          }
-
-          if (!referenceTable) {
+          } else {
             referenceTable = decoration.annotation.referenceTable as string;
           }
 
@@ -57,9 +58,30 @@ class Table<T extends NewableType<T>> implements RepositoryTableInterface<T> {
             foreignKey = this.repository.options.toTableNaming(decoration.key);
           }
 
+          let referenceKey = decoration.annotation.options.referenceKey;
+          if (!referenceKey && referenceClass) {
+            const referenceDecorator = DecoratorMetadata.findByAnnotationInteroperableName(
+              referenceClass,
+              'Schema',
+            );
+            if (referenceDecorator) {
+              const referenceSchema: SchemaAnnotation = referenceDecorator.annotation.target as any;
+              const primaryKeyColumn = referenceSchema.columns.find((col: any) => 
+                col.annotation?.options?.primaryKey
+              );
+              if (primaryKeyColumn) {
+                referenceKey = this.repository.options.toTableNaming(String(primaryKeyColumn.key));
+              }
+            }
+          }
+          
+          if (!referenceKey) {
+            throw new Error(`ForeignKey on ${String(decoration.key)} requires referenceKey to be specified or a schema with a primary key`);
+          }
+
           const constraint = queryTable.constraint.name(name).foreignKey(foreignKey);
 
-          constraint.references(referenceTable, { column: decoration.annotation.options.referenceKey });
+          constraint.references(referenceTable, { column: referenceKey });
 
           if (decoration.annotation.options.onUpdate) {
             constraint.onUpdate(decoration.annotation.options.onUpdate);

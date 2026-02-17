@@ -346,7 +346,18 @@ export class Query<T extends NewableType<T>> implements RepositoryQueryInterface
             );
             if (!foreignDecorator) throw new Error('DEFAULT foreignDecorator not found');
 
-            localProperty = foreignDecorator.annotation.options.referenceKey as string;
+            // Get referenceKey, auto-discovering from primary key if not provided
+            let referenceKey = foreignDecorator.annotation.options.referenceKey;
+            if (!referenceKey && typeof foreignDecorator.annotation.referenceTable === 'function') {
+              // Use local schema for primary key when foreignKey is on relation table pointing to local
+              const primaryKeyColumn = options.schema.columns.find((col: any) => col.annotation?.options?.primaryKey);
+              if (primaryKeyColumn) {
+                referenceKey = String(primaryKeyColumn.key);
+              }
+            }
+            if (!referenceKey) throw new Error('Could not determine referenceKey for foreign key relation');
+
+            localProperty = referenceKey as string;
             relationProperty = withRelation.annotation.options.foreignKey as string;
           }
 
@@ -356,7 +367,17 @@ export class Query<T extends NewableType<T>> implements RepositoryQueryInterface
             );
             if (!foreignDecorator) throw new Error('DEFAULT foreignDecorator not found');
 
-            relationProperty = foreignDecorator.annotation.options.referenceKey as string;
+            let referenceKey = foreignDecorator.annotation.options.referenceKey;
+            if (!referenceKey && typeof foreignDecorator.annotation.referenceTable === 'function') {
+
+              const primaryKeyColumn = relationSchema?.columns.find((col: any) => col.annotation?.options?.primaryKey);
+              if (primaryKeyColumn) {
+                referenceKey = String(primaryKeyColumn.key);
+              }
+            }
+            if (!referenceKey) throw new Error('Could not determine referenceKey for foreign key relation');
+
+            relationProperty = referenceKey as string;
             localProperty = withRelation.annotation.options?.localKey as string;
           }
 

@@ -9,7 +9,7 @@ export class ForeignKeyAnnotation implements AnnotationInterface, ForeignKeyInte
   persists?: boolean | undefined = true;
   stackable?: boolean | undefined = true;
 
-  constructor(public referenceTable: string | NewableType<any>, public options: ForeignKeyOptionsType) {}
+  constructor(public referenceTable: string | (() => NewableType<any>), public options: ForeignKeyOptionsType) {}
 
   onAttach(artifact: ArtifactType, decorator: DecoratorType): any {
     if (
