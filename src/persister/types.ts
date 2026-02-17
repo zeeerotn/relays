@@ -176,7 +176,7 @@ export type JoinKeyType = 'inner' | 'left' | 'right' | 'full' | 'cross';
 export type ForeignKeyOptionsType = {
   constraintName?: string;
   foreignKey?: string | string[];
-  referenceKey: string | string[];
+  referenceKey?: string | string[];
   onDelete?: `${ForeingActionEnum}`;
   onUpdate?: `${ForeingActionEnum}`;
 };
