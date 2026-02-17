@@ -346,39 +346,58 @@ export class Query<T extends NewableType<T>> implements RepositoryQueryInterface
             );
             if (!foreignDecorator) throw new Error('DEFAULT foreignDecorator not found');
 
-            // Get referenceKey, auto-discovering from primary key if not provided
             let referenceKey = foreignDecorator.annotation.options.referenceKey;
             if (!referenceKey && typeof foreignDecorator.annotation.referenceTable === 'function') {
-              // Use local schema for primary key when foreignKey is on relation table pointing to local
+
               const primaryKeyColumn = options.schema.columns.find((col: any) => col.annotation?.options?.primaryKey);
               if (primaryKeyColumn) {
                 referenceKey = String(primaryKeyColumn.key);
               }
             }
+
             if (!referenceKey) throw new Error('Could not determine referenceKey for foreign key relation');
 
             localProperty = referenceKey as string;
             relationProperty = withRelation.annotation.options.foreignKey as string;
           }
 
-          if (withRelation.annotation.options?.localKey) {
+          if (withRelation.annotation.options?.localKey && !localProperty) {
             const foreignDecorator = options.schema.foreignKeys.find((annotation) =>
               annotation.key == withRelation.annotation.options?.localKey
             );
-            if (!foreignDecorator) throw new Error('DEFAULT foreignDecorator not found');
 
-            let referenceKey = foreignDecorator.annotation.options.referenceKey;
-            if (!referenceKey && typeof foreignDecorator.annotation.referenceTable === 'function') {
-
-              const primaryKeyColumn = relationSchema?.columns.find((col: any) => col.annotation?.options?.primaryKey);
-              if (primaryKeyColumn) {
-                referenceKey = String(primaryKeyColumn.key);
+            if (!foreignDecorator) {
+              if (!withRelation.annotation.options?.foreignKey) {
+                const referencingForeignKey = relationSchema?.foreignKeys.find((fk: any) => {
+                  const refTable = typeof fk.annotation.referenceTable === 'function' 
+                    ? fk.annotation.referenceTable() 
+                    : null;
+                  return refTable === this.repository.schema;
+                });
+                
+                if (referencingForeignKey) {
+                  localProperty = withRelation.annotation.options.localKey as string;
+                  relationProperty = String(referencingForeignKey.key);
+                } else {
+                  throw new Error('DEFAULT foreignDecorator not found');
+                }
               }
-            }
-            if (!referenceKey) throw new Error('Could not determine referenceKey for foreign key relation');
+            } else {
+              let referenceKey = foreignDecorator.annotation.options.referenceKey;
+              if (!referenceKey && typeof foreignDecorator.annotation.referenceTable === 'function') {
 
-            relationProperty = referenceKey as string;
-            localProperty = withRelation.annotation.options?.localKey as string;
+                const primaryKeyColumn = relationSchema?.columns.find((col: any) => col.annotation?.options?.primaryKey);
+                if (primaryKeyColumn) {
+                  referenceKey = String(primaryKeyColumn.key);
+                }
+              }
+              if (!referenceKey) throw new Error('Could not determine referenceKey for foreign key relation');
+
+              relationProperty = referenceKey as string;
+              localProperty = withRelation.annotation.options?.localKey as string;
+            }
+          } else if (withRelation.annotation.options?.localKey && localProperty) {
+            localProperty = withRelation.annotation.options.localKey as string;
           }
 
           localProperty = this.repository.options.toTableNaming(localProperty);
@@ -415,8 +434,14 @@ export class Query<T extends NewableType<T>> implements RepositoryQueryInterface
               const columnName = `${opts.alias}.${relationProperty}`;
 
               if (relationFilter.select != '*') {
-                opts.instance.select.column(columnName, relationProperty);
-                opts.instance.group.column(columnName);
+                const isInSelect = relationFilter.select && Object.keys(relationFilter.select).some(key => {
+                  return this.repository.options.toTableNaming(key) === relationProperty;
+                });
+                
+                if (!isInSelect) {
+                  opts.instance.select.column(columnName, relationProperty);
+                  opts.instance.group.column(columnName);
+                }
               }
               opts.returns?.push(relationProperty);
               for (const [key, _value] of hasRelations) {
